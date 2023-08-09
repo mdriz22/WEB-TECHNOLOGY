@@ -1,0 +1,23 @@
+h3{
+    font-family:arial;
+    font-size:20;
+    color:cyan
+}
+table{
+    border-color:rgb(0, 80, 0)
+}
+td{
+    font-size:20pt;
+    color:rgb(255, 0, 0)
+}
+
+ body{
+    background-image: url("Slider_123.png");
+    background-size: cover;
+ }
+
+ .lt{
+    color: rgb(255, 0, 0);
+ }
+    
+   
