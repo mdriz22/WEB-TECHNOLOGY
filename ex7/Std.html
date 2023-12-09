@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function validate() {
+    var rollNo = document.myform.n2.value;
+    
+    if (rollNo.length === 0) {
+        window.alert("Enter the Roll Number.");
+        return;
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "student.xml", true); // Set the third parameter to true for asynchronous
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var xmlDoc = xmlhttp.responseXML;
+            var students = xmlDoc.getElementsByTagName("students");
+            var found = false;
+
+            for (var i = 0; i < students.length; i++) {
+                var rollno = students[i].getElementsByTagName("rollno")[0].textContent;
+
+                if (rollno === rollNo) {
+                    var name = students[i].getElementsByTagName("name")[0].textContent;
+                    var percentage = students[i].getElementsByTagName("percentage")[0].textContent;
+
+                    var userDetails = "USER DETAILS\n";
+                    userDetails += "Name: " + name + "\n";
+                    userDetails += "Roll Number: " + rollno + "\n";
+                    userDetails += "Percentage: " + percentage;
+
+                    document.getElementById("userDetails").textContent = userDetails;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                window.alert("Roll number not found");
+            }
+        }
+    };
+    xmlhttp.send();
+}
+</script>
+</head>
+<body bgcolor="pink" text="red">
+<form name="myform">
+<table align="center">
+<tr>
+    <td><b>Roll Number</b></td>
+    <td><input type="text" size="15" name="n2"></td>
+</tr>
+</table>
+<br>
+<center><input type="button" value="Submit" name="b1" onClick="validate()"></center>
+</form>
+<div id="userDetails"></div>
+</body>
+</html>
+
